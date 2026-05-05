@@ -8,7 +8,7 @@ app.get('/', (req, res) => {
   res.json({ mensagem: 'Yearbook API está no ar! 🎓' });
 });
 
-app.get('/', (req, res) => {
+app.get('/status', (req, res) => {
   res.json({ "status" : "ok" , "timestamp" : new Date()});
 });
 
