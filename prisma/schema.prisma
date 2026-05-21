@@ -15,6 +15,15 @@ enum Role {
   ADMIN   // administrador (professor ou aluno com permissão especial)
 }
 
+model Mensagem {
+   id            Int        @id @default(autoincrement())                   //PK, autoincrement
+  texto          String                                                     // O conteúdo da mensagem
+  imagemUrl      String?                                                    // URL da imagem (opcional)
+  autorId        Int                                                     //FK → Aluno (quem escreveu)
+  autor          Aluno @relation(fields: [autorId], references: [id])       // Relação com o model Aluno
+  criadoEm       DateTime   @default(now())                                 // data de criação automática
+}
+
 // Model Aluno — representa a tabela "Aluno" no banco
 model Aluno {
   id            Int        @id @default(autoincrement())  // PK, gerado automaticamente
@@ -29,3 +38,4 @@ model Aluno {
   criadoEm      DateTime   @default(now())                 // data de criação automática
   mensagens     Mensagem[]                                 // relação 1:N — um aluno tem muitas mensagens
 }
+
