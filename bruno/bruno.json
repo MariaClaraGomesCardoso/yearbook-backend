@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "Yearbook API Maria 2",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}
