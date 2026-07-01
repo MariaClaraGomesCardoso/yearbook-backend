@@ -44,20 +44,19 @@ export async function buscarAluno(req, res) {
 // Dica: os dados do aluno vêm de req.body (nome, email, senhaHash, cidade, frase, planosFuturos)
 // Dica: retorne status 201 com o aluno criado
 export async function criarAluno(req, res) {
-    const{nome, email, senhaHash, cidade, frase, planosFututos, fotoUrl,role } = req.body;
+    const{nome, email, senhaHash, cidade, frase, planosFututos, fotoUrl } = req.body;
     const novoAluno = await prisma.aluno.create({
     data: {
-      nome,
-      email,
-      senhaHash,
-      cidade,
-      frase,
-      planosFuturos,
-      fotoUrl,
-      role
+      nome : nome,
+      email : email,
+      senhaHash : senhaHash,
+      cidade : cidade,
+      frase : frase,
+      planosFuturos : planosFututos,
+      fotoUrl : fotoUrl
     },
      select: selectSemSenha
-    }); 
+    });
     res.status(201).json(novoAluno);
   // implemente aqui
 }
@@ -84,10 +83,10 @@ export async function atualizarAluno(req, res) {
 export async function deletarAluno(req, res) {
   try{
     const {id} = req.params;
-     await prisma.aluno.delete({where: {id: Number(id)}});
+    await prisma.aluno.delete({where: {id: Number(id)}});
     res.status(204).end();
   }catch(error){
+    console.log(error)
     res.status(404).json({erro:'Aluno não encontrado'});
   }
-  // implemente aqui
 }
