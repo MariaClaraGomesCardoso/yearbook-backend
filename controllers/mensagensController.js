@@ -1,8 +1,10 @@
 import prisma from '../prisma/client.js'; // importa o singleton do Prisma
 
-// GET /mensagens — lista todas as mensagens (mais recentes primeiro, com dados do autor)
-export async function listarMensagens(req, res) {
-  const mensagens = await prisma.mensagem.findMany({
+// GET /mensagens — lista todas as mensagens (mais recentes primeiro, com dados do auto
+// buscarAluno: adicione next aos parâmetros, envolva em try/catch
+export async function listarMensagens(req, res, next) {
+  try {
+    const mensagens = await prisma.mensagem.findMany({
     orderBy: { criadoEm: 'desc' },  // mais recente primeiro
     include: {
       autor: {                        // traz dados do autor junto
@@ -13,14 +15,19 @@ export async function listarMensagens(req, res) {
       },
     },
   });
-  res.json(mensagens); // retorna a lista com autor embutido
+  res.json(mensagens);
+  } catch (erro) {
+    next(erro);
+  }
 }
 
 // --- Stubs para o desafio do aluno ---
 
 // 🎯
-export async function criarMensagem(req, res) {
-  const{texto, imagemUrl, autorId } = req.body;
+  // buscarAluno: adicione next aos parâmetros, envolva em try/catch
+export async function buscarAluno(req, res, next) {
+  try {
+    const{texto, imagemUrl, autorId } = req.body;
     if(!texto){
         return res.sendStatus(400);
     }  
@@ -33,12 +40,17 @@ export async function criarMensagem(req, res) {
       },
     });
     res.status(201).json(novaMensagem);
-    // implemente aqui
+  } catch (erro) {
+    next(erro);
+  }
 }
+  
+    // implemente aqui
+
 
 // 🎯 DELETE /mensagens/:id — deleta uma mensagem
 // Siga o mesmo padrão do deletarAluno
-export async function deletarMensagem(req, res) {
+export async function deletarMensagem(req, res, next) {
     try{
     const {id} = req.params;
     await prisma.mensagem.delete({where: {id: Number(id)}});
