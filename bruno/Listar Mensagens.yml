@@ -1,0 +1,34 @@
+info:
+  name: Listar Mensagens
+  type: http
+  seq: 6
+
+http:
+  method: GET
+  url: |-
+    {
+      "texto": "Salve, turma! Último ano!",
+      "autorId": 1
+    https://fantastic-memory-7vgr699v547v3pqxw-3000.app.github.dev/
+  body:
+    type: json
+    data: ""
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("deve retornar status 200", function() {
+          expect(res.getStatus()).to.equal(200);
+        });
+
+        test("deve retornar um array", function() {
+          expect(res.getBody()).to.be.an('array');
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

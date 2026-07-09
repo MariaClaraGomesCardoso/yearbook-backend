@@ -25,12 +25,14 @@ export async function listarMensagens(req, res, next) {
 
 // 🎯
   // buscarAluno: adicione next aos parâmetros, envolva em try/catch
-export async function buscarAluno(req, res, next) {
+export async function criarMensagem(req, res, next) {
   try {
     const{texto, imagemUrl, autorId } = req.body;
+
     if(!texto){
-        return res.sendStatus(400);
-    }  
+        return res.status(400).json({erro: 'O campo texto é obrigatório!'});
+    } 
+
     const autorIdInteiro = Number(autorId);
     const novaMensagem = await prisma.mensagem.create({
      data: {
@@ -57,7 +59,7 @@ export async function deletarMensagem(req, res, next) {
     res.status(204).end();
   }catch(error){
     console.log(error)
-    res.status(404).json({erro:'Mensagem não encontrado'});
+    res.status(404).json({erro:'Mensagem não encontrada'});
   }
   // implemente aqui
 }

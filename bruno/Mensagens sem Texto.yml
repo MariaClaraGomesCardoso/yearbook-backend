@@ -1,0 +1,22 @@
+info:
+  name: Mensagens sem Texto
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: |-
+    test("deve retornar status 200", function() {
+      expect(res.getStatus()).to.equal(200);
+    });
+
+    test("deve retornar um array", function() {
+      expect(res.getBody()).to.be.an('array');
+    https://fantastic-memory-7vgr699v547v3pqxw-3000.app.github.dev/
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
